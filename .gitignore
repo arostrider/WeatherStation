@@ -133,3 +133,6 @@ client_secrets.json
 
 # IDEA
 .idea
+
+# Sampled data
+.data
