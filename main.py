@@ -11,11 +11,10 @@ ROOT = Path(__file__).parent
 DATA = ROOT / "data"
 
 
-def daily():
+def daily(gdrive: GoogleDriveHandler):
     today = datetime.now().date()
     daily_dir = DATA / today.strftime("%Y-%m-%d")
     daily_dir.mkdir(parents=True, exist_ok=False)
-    gdrive = GoogleDriveHandler()
     gfolder = gdrive.create_folder(daily_dir.name)
 
     while datetime.now().date() == today:
@@ -32,8 +31,9 @@ def daily():
 
 
 def main(days: int):
+    gdrive = GoogleDriveHandler()
     for i in range(days):
-        daily()
+        daily(gdrive)
 
 
 if __name__ == "__main__":
