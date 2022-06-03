@@ -135,4 +135,4 @@ client_secrets.json
 .idea
 
 # Sampled data
-.data
+/data
