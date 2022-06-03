@@ -1,5 +1,5 @@
 import time
-from datetime import datetime
+from datetime import datetime, timedelta
 from typing import Dict
 
 import bme280
@@ -12,10 +12,17 @@ bus = smbus2.SMBus(port)
 calibration_params = bme280.load_calibration_params(bus, address)
 
 
-def measuring_cycle(duration: int, freq: int) -> Dict:
-    collected_data = {}
+def measuring_cycle(duration: int, time_step: int) -> Dict:
+    """
 
-    for i in range(duration // freq):
+    :param duration: seconds
+    :param time_step: seconds
+    :return: dict with temperature, pressure, and humidity data sampled after every time step over the cycle duration
+    """
+    collected_data = {}
+    end_time = datetime.now() + timedelta(seconds=duration)
+
+    while datetime.now() < end_time:
         sensor_read = bme280.sample(bus, address, calibration_params)
 
         result = {"temperature": round(sensor_read.temperature, 1),
@@ -26,6 +33,6 @@ def measuring_cycle(duration: int, freq: int) -> Dict:
         collected_data.update({read_time: result})
 
         print({read_time: result})
-        time.sleep(freq)
+        time.sleep(time_step)
 
     return collected_data
