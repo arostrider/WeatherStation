@@ -17,7 +17,9 @@ def measuring_cycle(duration: int, time_step: int) -> Dict:
 
     :param duration: seconds
     :param time_step: seconds
-    :return: dict with temperature, pressure, and humidity data sampled after every time step over the cycle duration
+    :return: dict with temperature, pressure, 
+             and humidity data sampled 
+             after every time step over the cycle duration
     """
     collected_data = {}
     end_time = datetime.now() + timedelta(seconds=duration)
