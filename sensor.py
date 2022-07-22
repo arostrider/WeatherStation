@@ -7,7 +7,7 @@ import smbus2
 
 # BME280 sensor
 port = 1
-address = 0x77
+address = 0x76
 bus = smbus2.SMBus(port)
 calibration_params = bme280.load_calibration_params(bus, address)
 
